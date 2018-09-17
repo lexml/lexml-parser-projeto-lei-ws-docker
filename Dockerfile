@@ -1,4 +1,4 @@
-FROM tomcat/8.0-jre8
+FROM tomcat:8.0-jre8
 USER root
 RUN  apt-get update && \
      apt-get -y install abiword alex && \
