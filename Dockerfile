@@ -6,7 +6,7 @@ RUN apt-get update && \
     curl -sSL https://get.haskellstack.org/ | sh && \
     mkdir -p /areastorage/parser/mensagemUsuario && \
     mkdir -p /areastorage/parser/results && \
-    mkdir -p /areastorage/parser/lexml-static && \
+    mkdir -p /areastorage/lexml-static && \
     mkdir -p /opt/lexml && \
     cd /opt/lexml && \
     git clone https://github.com/lexml/lexml-parser-projeto-lei-ws.git && \
@@ -14,7 +14,7 @@ RUN apt-get update && \
     if [ -z "$http_port" ];then : ; else mkdir /root/.m2; echo "<settings><proxies><proxy><host>$http_host</host><port>$http_port</port></proxy></proxies></settings>" > /root/.m2/settings.xml; fi && \
     mvn clean package && \
     cp target/lexml-parser.war /usr/local/tomcat/webapps && \
-    cp -a src/main/resources/lexml-static/* /areastorage/parser/lexml-static && \
+    cp -a src/main/resources/lexml-static/* /areastorage/lexml-static && \
     rm -fr /root/.m2 && \
     cd .. && \
     git clone https://github.com/lexml/lexml-linker.git && \
