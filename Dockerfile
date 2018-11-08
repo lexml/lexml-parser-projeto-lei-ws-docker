@@ -1,8 +1,12 @@
 FROM tomcat:8.0-jre8-slim
 ARG http_port
 ARG http_host
+ARG uid
+ARG gid
 RUN apt-get update && \
     apt-get -y install abiword maven curl git && \
+    groupadd -g $gid -r tomcat && \
+    useradd -u $uid -r -g tomcat -d /usr/local/tomcat tomcat && \
     curl -sSL https://get.haskellstack.org/ | sh && \
     mkdir -p /areastorage/parser/mensagemUsuario && \
     mkdir -p /areastorage/parser/results && \
@@ -21,5 +25,9 @@ RUN apt-get update && \
     cd lexml-linker && \
     stack install --local-bin-path /usr/bin alex happy && \
     stack install --local-bin-path /usr/bin && \
+    cp /usr/bin/simplelinker /usr/local/bin && \
+    chown -R tomcat. /usr/local/tomcat && \
+    chown -R tomcat. /areastorage && \
     rm -fr /opt/lexml && \
     rm -fr /root/.stack
+USER tomcat:tomcat
