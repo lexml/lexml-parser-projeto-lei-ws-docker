@@ -1,0 +1,9 @@
+version: '2'
+services:
+  parser1:
+    image: lexmlbr/parser-projeto-lei-ws:{{gittag}}
+    volumes:
+      - /mnt/container-volumes/producao/lexml-parser/parser:/areastorage/parser
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label: role-backend=true
