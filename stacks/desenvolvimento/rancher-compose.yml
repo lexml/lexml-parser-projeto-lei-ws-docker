@@ -4,7 +4,7 @@ services:
     scale: 1
     start_on_create: true
     health_check:
-          port: 8443
+          port: 8080
           request_line: GET /lexml-parser/parse/static/simulador/simulador.html HTTP/1.0
           initializing_timeout: 20000
           reinitializing_timeout: 20000
