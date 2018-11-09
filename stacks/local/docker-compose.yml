@@ -2,8 +2,10 @@ version: '2'
 services:
   parser1:
     image: lexmlbr/parser-projeto-lei-ws
-    ports:
-      - "8080:8080"
+    volumes:
+      - /tmp/parser:/areastorage/parser
+  parser2:
+    image: lexmlbr/parser-projeto-lei-ws
     volumes:
       - /tmp/parser:/areastorage/parser
   nginx:
