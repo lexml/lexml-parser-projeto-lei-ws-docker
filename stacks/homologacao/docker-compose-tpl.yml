@@ -3,14 +3,14 @@ services:
   parser1:
     image: lexmlbr/parser-projeto-lei-ws:{{gittag}}
     volumes:
-      - /mnt/container-volumes/desenvolvimento/lexml-parser-hml/parser:/areastorage/parser
+      - /mnt/containers-volumes/desenvolvimento/lexml-parser-hml/parser:/areastorage/parser
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:host_label: role-backend=true
   parser2:
     image: lexmlbr/parser-projeto-lei-ws:{{gittag}}
     volumes:
-      - /mnt/container-volumes/desenvolvimento/lexml-parser-hml/parser:/areastorage/parser
+      - /mnt/containers-volumes/desenvolvimento/lexml-parser-hml/parser:/areastorage/parser
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:host_label: role-backend=true
