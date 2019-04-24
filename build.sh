@@ -19,4 +19,4 @@ function getExtraParameters {
 EXTRA_PARAMS=$(getExtraParameters)
 echo "Extra parameters: $EXTRA_PARAMS"
 
-docker build ${EXTRA_PARAMS} --build-arg uid=2000 --build-arg gid=2000 . -t lexmlbr/parser-projeto-lei-ws:${VERSION}
+docker build ${EXTRA_PARAMS} --build-arg uid=2000 --build-arg gid=2000 --build-arg version=${VERSION} . -t lexmlbr/parser-projeto-lei-ws:${VERSION}

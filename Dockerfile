@@ -3,6 +3,7 @@ ARG http_port
 ARG http_host
 ARG uid
 ARG gid
+ARG version=latest
 RUN groupadd -g $gid -r tomcat && \
     useradd -u $uid -r -g tomcat -d /usr/local/tomcat tomcat && \
     mkdir -p /areastorage/parser/mensagemUsuario && \
@@ -16,6 +17,7 @@ RUN apt-get update && \
 WORKDIR /opt/lexml
 RUN git clone https://github.com/lexml/lexml-parser-projeto-lei-ws.git && \
     cd lexml-parser-projeto-lei-ws && \
+    if [ "latest" != "$version" ]; then git checkout $version; fi && \
     if [ -z "$http_port" ];then : ; else mkdir /root/.m2; echo "<settings><proxies><proxy><host>$http_host</host><port>$http_port</port></proxy></proxies></settings>" > /root/.m2/settings.xml; fi && \
     mvn clean package && \
     cp target/lexml-parser.war /usr/local/tomcat/webapps && \
