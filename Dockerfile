@@ -15,6 +15,12 @@ RUN apt-get update && \
     apt-get -y install abiword maven curl git && \
     curl -sSL https://get.haskellstack.org/ | sh
 WORKDIR /opt/lexml
+RUN git clone https://github.com/lexml/lexml-linker.git && \
+    cd lexml-linker && \
+    stack install --local-bin-path /usr/bin alex happy && \
+    stack install --local-bin-path /usr/bin && \
+    cp /usr/bin/simplelinker /usr/local/bin && \
+    rm -fr /root/.stack
 RUN git clone https://github.com/lexml/lexml-parser-projeto-lei-ws.git && \
     cd lexml-parser-projeto-lei-ws && \
     if [ "latest" != "$version" ]; then git checkout $version; fi && \
@@ -23,12 +29,6 @@ RUN git clone https://github.com/lexml/lexml-parser-projeto-lei-ws.git && \
     cp target/lexml-parser.war /usr/local/tomcat/webapps && \
     cp -a src/main/resources/lexml-static/* /areastorage/lexml-static && \
     rm -fr /root/.m2
-RUN git clone https://github.com/lexml/lexml-linker.git && \
-    cd lexml-linker && \
-    stack install --local-bin-path /usr/bin alex happy && \
-    stack install --local-bin-path /usr/bin && \
-    cp /usr/bin/simplelinker /usr/local/bin && \
-    rm -fr /root/.stack
 WORKDIR /usr/local/tomcat
 RUN chown -R tomcat. /usr/local/tomcat && \
     chown -R tomcat. /areastorage && \
