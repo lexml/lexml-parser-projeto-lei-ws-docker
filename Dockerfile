@@ -15,12 +15,14 @@ RUN apt-get update && \
     apt-get -y install abiword maven curl git && \
     curl -sSL https://get.haskellstack.org/ | sh
 WORKDIR /opt/lexml
+COPY build-linker .
 RUN git clone https://github.com/lexml/lexml-linker.git && \
     cd lexml-linker && \
     stack install --local-bin-path /usr/bin alex happy && \
     stack install --local-bin-path /usr/bin && \
     cp /usr/bin/simplelinker /usr/local/bin && \
     rm -fr /root/.stack
+COPY build-parser .
 RUN git clone https://github.com/lexml/lexml-parser-projeto-lei-ws.git && \
     cd lexml-parser-projeto-lei-ws && \
     if [ "latest" != "$version" ]; then git checkout $version; fi && \
