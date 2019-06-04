@@ -14,11 +14,13 @@ RUN apt-get update && \
     stack install --local-bin-path /usr/bin alex happy && \
     stack install --local-bin-path /usr/bin
 
-FROM build-base as build-parser
-ARG http_port
-ARG http_host
+FROM build-base as maven-base
 RUN apt-get update && \
     apt-get -y install maven
+
+FROM maven-base as build-parser
+ARG http_port
+ARG http_host
 COPY build-parser .
 ARG version=latest
 RUN git clone https://github.com/lexml/lexml-parser-projeto-lei-ws.git && \
