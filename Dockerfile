@@ -1,49 +1,60 @@
 FROM tomcat:8.0-jre8-slim as build-base
 RUN mkdir /opt/lexml && \
     apt-get update && \
-    apt-get -y install git
-WORKDIR /opt/lexml
+    apt-get -y install git 
 
-FROM build-base as build-linker
-COPY build-linker .
+FROM tomcat:8.0-jre8-slim as runtime-base    
 RUN apt-get update && \
-    apt-get -y install curl && \
-    (curl -sSL https://get.haskellstack.org/ | sh) && \
-    git clone https://github.com/lexml/lexml-linker.git && \
-    cd lexml-linker && \
-    stack install --local-bin-path /usr/bin alex happy && \
-    stack install --local-bin-path /usr/bin
+    apt-get install -y abiword && \
+    rm -fRv \
+      /usr/local/tomcat/webapps/docs \
+      /usr/local/tomcat/webapps/examples \
+      /usr/local/tomcat/webapps/manager \
+      /usr/local/tomcat/webapps/host-manager \
+      /usr/local/tomcat/webapps/ROOT \
+      /usr/local/tomcat/webapps/ROOT \
+      /usr/lib/x86_64-linux-gnu/libLLVM* \
+      /usr/lib/x86_64-linux-gnu/dri \
+      /usr/share/icons
+
+FROM lexmlbr/lexml-linker:latest as linker-base
 
 FROM build-base as maven-base
 RUN apt-get update && \
     apt-get -y install maven
 
-FROM maven-base as build-parser
-ARG http_port
-ARG http_host
-COPY build-parser .
+FROM maven-base as build-parser-deps
+WORKDIR /opt/lexml
+RUN mkdir -p /root/.m2
+COPY m2-settings.xml /root/.m2/settings.xml
 ARG version=latest
 RUN git clone https://github.com/lexml/lexml-parser-projeto-lei-ws.git && \
     cd lexml-parser-projeto-lei-ws && \
     if [ "latest" != "$version" ]; then git checkout $version; fi && \
-    if [ -z "$http_port" ];then : ; else mkdir /root/.m2; echo "<settings><proxies><proxy><host>$http_host</host><port>$http_port</port></proxy></proxies></settings>" > /root/.m2/settings.xml; fi && \
+    ls | grep -v 'pom\.xml' | xargs rm -fRv && \
+    mvn dependency:go-offline && \
+    cd .. && \
+    rm -fR lexml-parser-projeto-lei-ws
+
+FROM build-parser-deps as build-parser
+WORKDIR /opt/lexml
+RUN git clone https://github.com/lexml/lexml-parser-projeto-lei-ws.git && \
+    cd lexml-parser-projeto-lei-ws && \
+    if [ "latest" != "$version" ]; then git checkout $version; fi && \
     mvn clean package
 
-FROM tomcat:8.0-jre8-slim
+FROM runtime-base
 ARG uid
 ARG gid
-RUN apt-get update && \
-    apt-get -y install abiword && \
-    groupadd -g $gid -r tomcat && \
-    useradd -u $uid -r -g tomcat -d /usr/local/tomcat tomcat && \
-    mkdir -p /areastorage/parser/mensagemUsuario && \
+RUN mkdir -p /areastorage/parser/mensagemUsuario && \
     mkdir -p /areastorage/parser/results && \
     mkdir -p /areastorage/lexml-static && \
+    groupadd -g $gid -r tomcat && \
+    useradd -u $uid -r -g tomcat -d /usr/local/tomcat tomcat && \
     chown -R tomcat. /usr/local/tomcat && \
     chown -R tomcat. /areastorage
 VOLUME /areastorage/parser
-COPY --from=build-linker /usr/bin/simplelinker /usr/local/bin
-COPY --from=build-linker /usr/lib/x86_64-linux-gnu/libgmp.so.10 /usr/lib/x86_64-linux-gnu
+COPY --from=linker-base /usr/bin/simplelinker /usr/local/bin
 USER tomcat:tomcat
 WORKDIR /usr/local/tomcat
 COPY --from=build-parser /opt/lexml/lexml-parser-projeto-lei-ws/target/lexml-parser.war ./webapps

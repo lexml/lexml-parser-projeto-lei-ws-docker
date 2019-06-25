@@ -18,5 +18,15 @@ function getExtraParameters {
 }
 EXTRA_PARAMS=$(getExtraParameters)
 echo "Extra parameters: $EXTRA_PARAMS"
+if [ -f "m2-settings.xml" ] ; then
+  echo "Custom Maven settings found"
+else
+  echo "Custom Maven settings not found. Generating a generic configuration"
+  cat > m2-settings.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+</settings>
+EOF
+fi
 
 docker build ${EXTRA_PARAMS} --build-arg uid=2000 --build-arg gid=2000 --build-arg version=${VERSION} . -t lexmlbr/parser-projeto-lei-ws:${VERSION}

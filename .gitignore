@@ -1,2 +1,7 @@
-# Created by .ignore support plugin (hsz.mobi)
 .idea/
+./m2-settings.xml
+
+m2-settings.xml
+lexml-linker/
+lexml-parser-projeto-lei-ws/
+.project
