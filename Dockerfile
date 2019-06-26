@@ -41,6 +41,7 @@ WORKDIR /opt/lexml
 RUN git clone https://github.com/lexml/lexml-parser-projeto-lei-ws.git && \
     cd lexml-parser-projeto-lei-ws && \
     if [ "latest" != "$version" ]; then git checkout $version; fi && \
+    git log | head -n 1 | sed -e 's/commit *//g' > src/main/resources/lexml-static/commit-id && \
     mvn clean package
 
 FROM runtime-base
