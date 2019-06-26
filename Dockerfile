@@ -17,7 +17,7 @@ RUN apt-get update && \
       /usr/lib/x86_64-linux-gnu/dri \
       /usr/share/icons
 
-FROM lexmlbr/lexml-linker:latest as linker-base
+FROM lexmlbr/lexml-linker:1.0 as linker-base
 
 FROM build-base as maven-base
 RUN apt-get update && \
