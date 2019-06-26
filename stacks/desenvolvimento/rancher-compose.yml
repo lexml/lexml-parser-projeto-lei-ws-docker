@@ -12,7 +12,7 @@ services:
           response_timeout: 5000
           healthy_threshold: 2
           unhealthy_threshold: 3
-          strategy: recreate
+          strategy: none
   parser2:
     scale: 1
     start_on_create: true
@@ -25,4 +25,4 @@ services:
           response_timeout: 5000
           healthy_threshold: 2
           unhealthy_threshold: 3
-          strategy: recreate
+          strategy: none
