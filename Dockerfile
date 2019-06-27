@@ -41,7 +41,8 @@ WORKDIR /opt/lexml
 RUN git clone https://github.com/lexml/lexml-parser-projeto-lei-ws.git && \
     cd lexml-parser-projeto-lei-ws && \
     if [ "latest" != "$version" ]; then git checkout $version; fi && \
-    git log | head -n 1 | sed -e 's/commit *//g' > src/main/resources/lexml-static/commit-id && \
+    VER=`git log | head -n 1 | sed -e 's/commit *//g'` ; echo "$VER" > src/main/resources/lexml-static/commit-id && \
+    sed -i -e "s/VERSAO_PARSER/$VER/g" src/main/resources/lexml-static/simulador/simulador.html && \ 
     mvn clean package
 
 FROM runtime-base
@@ -60,3 +61,4 @@ USER tomcat:tomcat
 WORKDIR /usr/local/tomcat
 COPY --from=build-parser /opt/lexml/lexml-parser-projeto-lei-ws/target/lexml-parser.war ./webapps
 COPY --from=build-parser /opt/lexml/lexml-parser-projeto-lei-ws/src/main/resources/lexml-static/ /areastorage/lexml-static
+RUN sed -i -e '2iexport LANG=C.UTF-8 LC_ALL=C.UTF_8' bin/catalina.sh
