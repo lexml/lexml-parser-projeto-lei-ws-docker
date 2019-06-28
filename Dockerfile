@@ -62,6 +62,3 @@ WORKDIR /usr/local/tomcat
 COPY --from=build-parser /opt/lexml/lexml-parser-projeto-lei-ws/target/lexml-parser.war ./webapps
 COPY --from=build-parser /opt/lexml/lexml-parser-projeto-lei-ws/src/main/resources/lexml-static/ /areastorage/lexml-static
 RUN sed -i -e '2iexport LANG=C.UTF-8 LC_ALL=C.UTF_8' bin/catalina.sh
-USER root:root
-RUN apt-get install -y strace vim wget tcpdump iptables sudo netcat iproute2 && \
-    echo "tomcat ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
