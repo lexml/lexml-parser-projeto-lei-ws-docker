@@ -6,10 +6,10 @@ services:
     health_check:
           port: 8080
           request_line: GET /lexml-parser/parse/static/simulador/simulador.html HTTP/1.0
-          initializing_timeout: 20000
-          reinitializing_timeout: 20000
+          initializing_timeout: 120000
+          reinitializing_timeout: 120000
           interval: 10000
-          response_timeout: 5000
+          response_timeout: 10000
           healthy_threshold: 2
           unhealthy_threshold: 3
           strategy: recreate
@@ -19,10 +19,10 @@ services:
     health_check:
           port: 8080
           request_line: GET /lexml-parser/parse/static/simulador/simulador.html HTTP/1.0
-          initializing_timeout: 20000
-          reinitializing_timeout: 20000
+          initializing_timeout: 120000
+          reinitializing_timeout: 120000
           interval: 10000
-          response_timeout: 5000
+          response_timeout: 10000
           healthy_threshold: 2
           unhealthy_threshold: 3
           strategy: recreate
