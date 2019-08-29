@@ -3,10 +3,6 @@ services:
   parser1:
     scale: 1
     start_on_create: true
-    labels:
-      prom.port: 8080
-      prom.path: /lexml-parser/sfstatus/metrics
-      prom.target: service
     health_check:
           port: 8080
           request_line: GET /lexml-parser/sfstatus/ping HTTP/1.0
@@ -20,10 +16,6 @@ services:
   parser2:
     scale: 1
     start_on_create: true
-    labels:
-      prom.port: 8080
-      prom.path: /lexml-parser/sfstatus/metrics
-      prom.target: service
     health_check:
           port: 8080
           request_line: GET /lexml-parser/sfstatus/ping HTTP/1.0
