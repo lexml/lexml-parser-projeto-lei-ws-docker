@@ -13,15 +13,6 @@ services:
           healthy_threshold: 2
           unhealthy_threshold: 3
           strategy: recreate
-    volumes:
-      lexml-parser-dsv-log-1:/var/log/lexml-parser-dsv-log
-    labels:
-      io.rancher.sidekicks: filebeat1
-  filebeat1:
-    scale: 1
-    start_on_create: true
-    volumes:
-      lexml-parser-dsv-log-1:/var/log/lexml-parser-dsv-log
   parser2:
     scale: 1
     start_on_create: true
