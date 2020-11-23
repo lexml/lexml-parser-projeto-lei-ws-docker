@@ -1,15 +1,24 @@
 version: '2'
 services:
-  parser:
+  parser1
     image: lexmlbr/parser-projeto-lei-ws
-#    volumes:
-#      - /mnt/containers-volumes/desenvolvimento/lexml-parser-dsv/parser:/areastorage/parser
     environment:
        - LEXML_PARSER_APP_ENV=desenvolvimento
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:host_label: role-app=true
-      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=lexml-parser-dsv/parser
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=lexml-parser-dsv/parser2      
+      prom.port: 8080
+      prom.path: /lexml-parser/sfstatus/metrics
+      prom.target: service
+  parser2:
+    image: lexmlbr/parser-projeto-lei-ws
+    environment:
+       - LEXML_PARSER_APP_ENV=desenvolvimento
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label: role-app=true
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=lexml-parser-dsv/parser1
       prom.port: 8080
       prom.path: /lexml-parser/sfstatus/metrics
       prom.target: service
