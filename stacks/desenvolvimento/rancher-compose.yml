@@ -1,7 +1,7 @@
 version: '2'
 services:
-  parser1:
-    scale: 1
+  parser:
+    scale: 2
     start_on_create: true
     health_check:
           port: 8080
