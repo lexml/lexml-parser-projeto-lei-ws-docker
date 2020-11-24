@@ -13,6 +13,9 @@ services:
           healthy_threshold: 2
           unhealthy_threshold: 3
           strategy: recreate
+  filebeat1:
+    scale: 1
+    start_on_create: true
   parser2:
     scale: 1
     start_on_create: true

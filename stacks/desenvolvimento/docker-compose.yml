@@ -4,6 +4,8 @@ services:
     image: lexmlbr/parser-projeto-lei-ws
     environment:
        - LEXML_PARSER_APP_ENV=desenvolvimento
+    volumes: 
+      - /mnt/containers-volumes/desenvolvimento/lexml-parser-dsv/logs:/lexml-parser-pl/logs
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:host_label: role-app=true
@@ -11,6 +13,13 @@ services:
       prom.port: 8080
       prom.path: /lexml-parser/sfstatus/metrics
       prom.target: service
+      io.rancher.sidekicks: filebeat1
+  filebeat1:
+      image: store/elastic/filebeat:7.10.0
+      volumes:
+        - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      volumes_from:
+        - parser1
   parser2:
     image: lexmlbr/parser-projeto-lei-ws
     environment:

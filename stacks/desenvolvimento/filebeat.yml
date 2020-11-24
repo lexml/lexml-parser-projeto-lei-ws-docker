@@ -1,0 +1,26 @@
+filebeat:
+  prospectors:
+    - paths:
+        - "/lexml-parser-pl/logs/*.log"
+        - "/lexml-parser-pl/logs/*.log.0"
+      document_type: log4jv2
+      fields_under_root: true
+      fields:
+        stack: docker
+        rancher-stack: ${STACK_NAME}
+        rancher-environment: ${RANCHER_ENVIRONMENT}
+        environment: ${AMBIENTE}
+        application: ${SERVICE_NAME}
+        instance: ${CONTAINER_NAME}
+      multiline:
+        pattern: '^[[:digit:]]+[-][[:digit:]]+[-][[:digit:]]+[T ][[:digit:]]+[:][[:digit:]]+[:][[:digit:]]+[,.][[:digit:]]+'
+        negate: true
+        match: after
+logging:
+  level: info 
+  files: 
+    rotateeverybytes: 10485760
+output.logstash:
+  hosts: ["logstash01.senado.gov.br:8102","logstash02.senado.gov.br:8102","logstash03.senado.gov.br:8102"]
+  loadbalance: true
+
