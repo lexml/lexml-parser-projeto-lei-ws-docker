@@ -17,7 +17,7 @@ services:
   filebeat1:
       image: store/elastic/filebeat:7.10.0
       volumes_from:
-        - parser1:rw
+        - parser1
       environment:
           - filebeat.prospectors.paths=["/lexml-parser-pl/logs/*.log","/lexml-parser-pl/logs/*.log.0"]
           - filebeat.prospectors.document_type=log4jv2
