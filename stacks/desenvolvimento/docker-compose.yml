@@ -5,7 +5,7 @@ services:
     environment:
        - LEXML_PARSER_APP_ENV=desenvolvimento
     volumes: 
-      - /mnt/containers-volumes/desenvolvimento/lexml-parser-dsv/logs:/lexml-parser-pl/logs:rw
+      - /mnt/containers-volumes/desenvolvimento/lexml-parser-dsv/logs1:/lexml-parser-pl/logs:rw
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:host_label: role-app=true
@@ -39,6 +39,8 @@ services:
     image: lexmlbr/parser-projeto-lei-ws
     environment:
        - LEXML_PARSER_APP_ENV=desenvolvimento
+    volumes: 
+      - /mnt/containers-volumes/desenvolvimento/lexml-parser-dsv/logs2:/lexml-parser-pl/logs:rw
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:host_label: role-app=true
