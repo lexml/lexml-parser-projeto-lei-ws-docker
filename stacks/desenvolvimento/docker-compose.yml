@@ -2,10 +2,12 @@ version: '2'
 services:
   parser1:
     image: lexmlbr/parser-projeto-lei-ws
+    uid: 200
+    gid: 200
     environment:
        - LEXML_PARSER_APP_ENV=desenvolvimento
     volumes: 
-      - /mnt/containers-volumes/desenvolvimento/lexml-parser-dsv/logs:/lexml-parser-pl/logs
+      - /mnt/containers-volumes/desenvolvimento/lexml-parser-dsv/logs:/lexml-parser-pl/logs:rw
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:host_label: role-app=true
@@ -17,7 +19,7 @@ services:
   filebeat1:
       image: store/elastic/filebeat:7.10.0
       volumes_from:
-        - parser1
+        - parser1:rw
       environment:
           - filebeat.prospectors.paths=["/lexml-parser-pl/logs/*.log","/lexml-parser-pl/logs/*.log.0"]
           - filebeat.prospectors.document_type=log4jv2
