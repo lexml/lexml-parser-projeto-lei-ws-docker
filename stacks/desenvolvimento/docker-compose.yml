@@ -25,34 +25,22 @@ services:
 #          - filebeat.prospectors.fields.stack=docker
 #          - filebeat.prospectors.fields.rancher-stack=lexml-parser-dsv
 #          - filebeat.prospectors.fields.rancher-environment=desenvolvimento
-#          - filebeat.prospectors.fields.environment=desenvolvimento 
-#          - filebeat.prospectors.fields.application=lexml-parser-dsv
-# #          - filebeat.prospectors.fields.instance=${CONTAINER_NAME}
-#          - 'filebeat.prospectors.multiline.pattern=^[[:digit:]]+[-][[:digit:]]+[-][[:digit:]]+[T ][[:digit:]]+[:][[:digit:]]+[:][[:digit:]]+[,.][[:digit:]]+'
-#          - filebeat.prospectors.multiline.negate=true
-#          - filebeat.prospectors.multiline.match=after
-#          - logging.level=info
-#          - logging.files.rotateeverybytes=1048576
-#          - output.logstash.hosts=["logstash01.senado.gov.br:8102","logstash02.senado.gov.br:8102","logstash03.senado.gov.br:8102"]
-#          - output.logstash.loadbalance=true
-  parser2:
-    image: lexmlbr/parser-projeto-lei-ws
-    environment:
-       - LEXML_PARSER_APP_ENV=desenvolvimento
-    volumes: 
-      - /mnt/containers-volumes/desenvolvimento/lexml-parser-dsv/logs2:/lexml-parser-pl/logs:rw
-    labels:
-      io.rancher.container.pull_image: always
-      io.rancher.scheduler.affinity:host_label: role-app=true
-      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=lexml-parser-dsv/parser1
-      prom.port: 8080
-      prom.path: /lexml-parser/sfstatus/metrics
-      prom.target: service
-
+##          - filebeat.prospectors.fields.environment=desenvolvimento 
+##          - filebeat.prospectors.fields.application=lexml-parser-dsv
+## #          - filebeat.prospectors.fields.instance=${CONTAINER_NAME}
+##          - 'filebeat.prospectors.multiline.pattern=^[[:digit:]]+[-][[:digit:]]+[-][[:digit:]]+[T ][[:digit:]]+[:][[:digit:]]+[:][[:digit:]]+[,.][[:digit:]]+'
+##          - filebeat.prospectors.multiline.negate=true
+##          - filebeat.prospectors.multiline.match=after
+##          - logging.level=info
+##          - logging.files.rotateeverybytes=1048576
+##          - output.logstash.hosts=["logstash01.senado.gov.br:8102","logstash02.senado.gov.br:8102","logstash03.senado.gov.br:8102"]
+##          - output.logstash.loadbalance=true
 #  parser2:
 #    image: lexmlbr/parser-projeto-lei-ws
-#    volumes:
-#      - /mnt/containers-volumes/desenvolvimento/lexml-parser-dsv/parser:/areastorage/parser
+#    environment:
+#       - LEXML_PARSER_APP_ENV=desenvolvimento
+#    volumes: 
+#      - /mnt/containers-volumes/desenvolvimento/lexml-parser-dsv/logs2:/lexml-parser-pl/logs:rw
 #    labels:
 #      io.rancher.container.pull_image: always
 #      io.rancher.scheduler.affinity:host_label: role-app=true
