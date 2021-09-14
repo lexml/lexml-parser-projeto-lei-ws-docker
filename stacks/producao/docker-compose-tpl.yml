@@ -17,20 +17,20 @@ services:
       lb.java.prd.interno_externo.porta: '8080'
       lb.java.prd.interno_externo.healthcehck: /lexml-parser/sfstatus/ping
       lb.java.prd.interno_externo.sticksession: true
-#  parser2:
-#    image: lexmlbr/parser-projeto-lei-ws:{{gittag}}
-#    environment:
-#       - LEXML_PARSER_APP_ENV=producao
-#       - PARSER_CLUSTER_SIZE=2
-#    volumes: 
-#      - /mnt/containers-volumes/producao/lexml-parser/logs2:/lexml-parser-pl/logs:rw
-#    labels:
-#      io.rancher.container.pull_image: always
-#      io.rancher.scheduler.affinity:host_label: role-app=true
-#      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=lexml-parser/parser1
-#      prom.port: 8080
-#      prom.path: /lexml-parser/sfstatus/metrics
-#      prom.target: service
-#      lb.java.prd.interno_externo.porta: '8080'
-#      lb.java.prd.interno_externo.healthcehck: /lexml-parser/sfstatus/ping
-#      lb.java.prd.interno_externo.sticksession: true
+  parser2:
+    image: lexmlbr/parser-projeto-lei-ws:{{gittag}}
+    environment:
+       - LEXML_PARSER_APP_ENV=producao
+       - PARSER_CLUSTER_SIZE=2
+    volumes: 
+      - /mnt/containers-volumes/producao/lexml-parser/logs2:/lexml-parser-pl/logs:rw
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label: role-app=true
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=lexml-parser/parser1
+      prom.port: 8080
+      prom.path: /lexml-parser/sfstatus/metrics
+      prom.target: service
+      lb.java.prd.interno_externo.porta: '8080'
+      lb.java.prd.interno_externo.healthcehck: /lexml-parser/sfstatus/ping
+      lb.java.prd.interno_externo.sticksession: true
