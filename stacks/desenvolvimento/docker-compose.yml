@@ -1,9 +1,10 @@
 version: '2'
 services:
   parser1:
-    image: lexmlbr/parser-projeto-lei-ws:1.7.41-b1
+    image: lexmlbr/parser-projeto-lei-ws
     environment:
        - LEXML_PARSER_APP_ENV=desenvolvimento
+       - PARSER_CLUSTER_SIZE=2
     volumes: 
       - /mnt/containers-volumes/desenvolvimento/lexml-parser-dsv/logs1:/lexml-parser-pl/logs:rw
     labels:
@@ -36,9 +37,10 @@ services:
 ##          - output.logstash.hosts=["logstash01.senado.gov.br:8102","logstash02.senado.gov.br:8102","logstash03.senado.gov.br:8102"]
 ##          - output.logstash.loadbalance=true
   parser2:
-    image: lexmlbr/parser-projeto-lei-ws:1.7.41-b1
+    image: lexmlbr/parser-projeto-lei-ws
     environment:
        - LEXML_PARSER_APP_ENV=desenvolvimento
+       - PARSER_CLUSTER_SIZE=2
     volumes: 
       - /mnt/containers-volumes/desenvolvimento/lexml-parser-dsv/logs2:/lexml-parser-pl/logs:rw
     labels:
