@@ -15,7 +15,7 @@ services:
       prom.path: /lexml-parser/sfstatus/metrics
       prom.target: service
       lb.java.dsv.interno_externo.porta: '8080'
-      lb.java.dsv.interno_externo.healthcehck: /lexml-parser/sfstatus/ping
+      lb.java.dsv.interno_externo.healthcheck: /lexml-parser/sfstatus/ping
       lb.java.dsv.interno_externo.sticksession: true
   parser2:
     image: lexmlbr/parser-projeto-lei-ws
@@ -32,5 +32,5 @@ services:
       prom.path: /lexml-parser/sfstatus/metrics
       prom.target: service
       lb.java.dsv.interno_externo.porta: '8080'
-      lb.java.dsv.interno_externo.healthcehck: /lexml-parser/sfstatus/ping
+      lb.java.dsv.interno_externo.healthcheck: /lexml-parser/sfstatus/ping
       lb.java.dsv.interno_externo.sticksession: true
