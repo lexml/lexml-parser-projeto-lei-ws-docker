@@ -1,6 +1,6 @@
 version: '2'
 services:
-  parser1:
+  lexml-parser:
     image: lexmlbr/parser-projeto-lei-ws:{{gittag}}
     environment:
        - LEXML_PARSER_APP_ENV=homologacao
@@ -10,27 +10,9 @@ services:
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:host_label: role-app=true
-      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=lexml-parser-hml/parser2
       prom.port: 8080
       prom.path: /lexml-parser/sfstatus/metrics
       prom.target: service
       lb.java.hml.somente_interno.porta: '8080'
       lb.java.hml.somente_interno.healthcheck: /lexml-parser/sfstatus/ping
       lb.java.hml.somente_interno.sticksession: true
-  parser2:
-    image: lexmlbr/parser-projeto-lei-ws:{{gittag}}
-    environment:
-       - LEXML_PARSER_APP_ENV=homologacao
-       - PARSER_CLUSTER_SIZE=2
-    volumes: 
-      - /mnt/containers-volumes/producao/lexml-parser-hml/logs2:/lexml-parser-pl/logs:rw
-    labels:
-      io.rancher.container.pull_image: always
-      io.rancher.scheduler.affinity:host_label: role-app=true
-      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=lexml-parser-hml/parser1
-      lb.java.hml.somente_interno.porta: '8080'
-      lb.java.hml.somente_interno.healthcheck: /lexml-parser/sfstatus/ping
-      lb.java.hml.somente_interno.sticksession: true
-      prom.port: 8080
-      prom.path: /lexml-parser/sfstatus/metrics
-      prom.target: service
