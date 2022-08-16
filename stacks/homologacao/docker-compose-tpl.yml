@@ -2,6 +2,7 @@ version: '2'
 services:
   lexml-parser:
     image: lexmlbr/parser-projeto-lei-ws:{{gittag}}
+    mem_limit: 1073741824
     environment:
        - LEXML_PARSER_APP_ENV=homologacao
        - PARSER_CLUSTER_SIZE=2
