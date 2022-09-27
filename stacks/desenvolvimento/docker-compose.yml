@@ -10,7 +10,7 @@ services:
       - /mnt/containers-volumes/desenvolvimento/lexml-parser-dsv/logs1:/lexml-parser-pl/logs:rw
     labels:
       io.rancher.container.pull_image: always 
-      io.rancher.scheduler.affinity:host_label: role-app=true 
+      io.rancher.scheduler.affinity:host_label: role-app-leg-somente_interno=true 
         #      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=lexml-parser-dsv/parser2      
       prom.port: 8080  
       prom.path: /lexml-parser/sfstatus/metrics

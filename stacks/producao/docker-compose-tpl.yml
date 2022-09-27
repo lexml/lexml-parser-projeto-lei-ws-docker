@@ -10,7 +10,7 @@ services:
       - /mnt/containers-volumes/producao/lexml-parser/logs1:/lexml-parser-pl/logs:rw
     labels:
       io.rancher.container.pull_image: always
-      io.rancher.scheduler.affinity:host_label: role-app=true
+      io.rancher.scheduler.affinity:host_label: role-app-leg-somente_interno=true
       prom.port: 8080
       prom.path: /lexml-parser/sfstatus/metrics
       prom.target: service
