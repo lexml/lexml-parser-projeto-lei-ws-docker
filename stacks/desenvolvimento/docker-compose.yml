@@ -18,20 +18,3 @@ services:
       lb.java.dsv.somente_interno.porta: '8080'
       lb.java.dsv.somente_interno.healthcheck: /lexml-parser/sfstatus/ping
       lb.java.dsv.somente_interno.sticksession: true
-        #  parser2:
-        #    image: lexmlbr/parser-projeto-lei-ws
-        #    environment:
-        #       - LEXML_PARSER_APP_ENV=desenvolvimento
-        #       - PARSER_CLUSTER_SIZE=2
-        #    volumes: 
-        #      - /mnt/containers-volumes/desenvolvimento/lexml-parser-dsv/logs2:/lexml-parser-pl/logs:rw
-        #    labels:
-        #      io.rancher.container.pull_image: always
-        #      io.rancher.scheduler.affinity:host_label: role-app=true
-        #      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=lexml-parser-dsv/parser1
-        #      prom.port: 8080
-        #      prom.path: /lexml-parser/sfstatus/metrics
-        #      prom.target: service
-        #      lb.java.dsv.somente_interno.porta: '8080'
-        #      lb.java.dsv.somente_interno.healthcheck: /lexml-parser/sfstatus/ping
-        #      lb.java.dsv.somente_interno.sticksession: true
