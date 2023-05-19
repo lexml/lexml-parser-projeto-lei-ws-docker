@@ -5,7 +5,7 @@ services:
     mem_limit: 1073741824
     environment:
        - LEXML_PARSER_APP_ENV=desenvolvimento
-       - PARSER_CLUSTER_SIZE=2
+       - PARSER_CLUSTER_SIZE=8
     volumes: 
       - /mnt/containers-volumes/desenvolvimento/lexml-parser-dsv/logs1:/lexml-parser-pl/logs:rw
     labels:
