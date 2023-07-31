@@ -8,6 +8,7 @@ services:
        - PARSER_CLUSTER_SIZE=2
     volumes: 
       - /mnt/containers-volumes/producao/lexml-parser/logs1:/lexml-parser-pl/logs:rw
+      - /mnt/containers-volumes/producao/lexml-parser/parser:/areastorage/parser  
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:host_label: role-app-leg-somente_interno=true
