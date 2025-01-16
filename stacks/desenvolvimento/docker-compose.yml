@@ -2,7 +2,7 @@ version: '2'
 services:
   lexml-parser:
     image: lexmlbr/parser-projeto-lei-ws
-    mem_limit: 1073741824
+    mem_limit: 2147483648
     environment:
        - LEXML_PARSER_APP_ENV=desenvolvimento
        - PARSER_CLUSTER_SIZE=2
